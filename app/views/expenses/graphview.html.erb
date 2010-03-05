@@ -1,0 +1,25 @@
+<div class="right">
+  <div id="graph_link">
+    <div style="float:left"> 
+      <a href="/expenses/graphview?type=month"><%= Time.now.strftime("%B") %> month graph</a>| <a href="/expenses/graphview?type=year"><%= Time.now.year %> Year graph</a>
+    </div>
+    <div style="float:right">
+  <form method="get" action="/expenses/graphview">
+     <% if @month.blank? %>
+       <% month = Time.now.month %>
+     <% else %>
+       <% month = @month %>
+       <% end %>
+    <%= select_month(Time.local(@year,month,"1"),:include_blank => " -- " )%>
+      <%= select_year(Date.today, :start_year => 1992, :end_year => 2014, :select => @year) %>
+      <input type="submit" value="submit">
+    </form>
+  </div>
+  </div>
+  <div>
+  <% unless @categories.blank? %> 
+  <%= raw( @graph) %>
+  <%=  raw( @line_chart) %>
+ <% end %>
+</div>
+</div>

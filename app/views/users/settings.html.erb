@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Sillarai</title>
+<meta http-equiv="Content-Language" content="English" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<%= stylesheet_link_tag 'style','ui.core','ui.base','jquery-ui','ui.datepicker' %>
+
+<%= javascript_include_tag 'jquery',
+                           'ui/ui.core',
+            
+                            :cache => 'sillarai-settings.js'%>
+                          
+<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
+
+
+
+<script type="text/javascript">
+
+
+function notify( value){
+  document.getElementById('message_notify').innerHTML = value;
+  document.getElementById('message_notify').style.display = 'block';
+  $('#message_notify').fadeOut(3000);
+}
+
+</script>
+</head>
+<body>
+<div id="message_notify"> </div>
+<% if flash[:message] %>
+
+	<script> notify('<%= flash[:message] %>'); </script>
+<% end %>
+
+<div id="wrap">
+  <%= render :partial => '/layouts/header' %>
+
+<div id="top"> </div>
+
+  <%= render :partial => '/layouts/menubar' %>
+<div id="content">
+<div>
+  <div id="settings_page" >
+  <h2 id="settings_heading"> Change Email Address </h2>
+  Please be careful in changing email address. You also need to add the gchat bot to your email account.
+  <br>
+    <form method="post" action="/users/change_email">
+      <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
+      <p style="margin:10px;margin-left:20px">Email Address
+      <input type="text" name="email" value="<%= @user.email %>" >
+      <input type="submit" value ="save" >
+      </p>
+    </form>
+    <br>
+    <br>
+
+  <h2 id="settings_heading"> Change password </h2>
+
+	<%= render :partial => 'change_password' %>
+  <br>
+  <br>
+ <h2> Usage survey </h2>
+     
+    <form method="post" action="/users/usage_survey">
+      <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
+   <p style="margin:30px;margin-left:30px;">
+	Use my expense data to survey
+       <% if @user.data_usage == 1 %>
+	 <% chk = true %>
+	<% else %>
+         <% chk = false %>
+        <% end %>
+      <%=  check_box_tag 'use_data', 'yes', chk %> &nbsp;&nbsp; 
+	<input type="submit" value ="save" >
+   </p>
+    </form>
+	
+  </div>
+  <div id="message">
+  </div>
+</div>
+
+
+
+<div style="clear: both;"> </div>
+</div>
+
+<%= render :partial=> '/layouts/footer' %>
+
+
+</div>
+
+</body>
+<%= render :partial => '/layouts/google_tracker' %>
+</html>

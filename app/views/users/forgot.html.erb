@@ -1,0 +1,17 @@
+
+<div>
+  <div id="faq_page" >
+  <h1> Forgotten password </h1>
+     <p >  To obtain a new password, please enter your email address and a link will be emailed to you.</p>
+    <form method="post" action="/users/forgot_password">
+      <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
+      <p>Email address:
+      <input id="email" name="user[email]" type="text" >
+      <input type="submit" value="send">
+      </p> 
+      
+    </form>
+  </div>
+  <div id="message">
+  </div>
+</div>

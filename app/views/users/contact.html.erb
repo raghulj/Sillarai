@@ -1,0 +1,35 @@
+<%= javascript_include_tag 'jquery.validate' %>
+<script>
+$(document).ready(function(){
+    $("#commentForm").validate();
+  });
+
+</script>
+<div>
+  <div id="faq_page" >
+  <h1> Any queries? </h1>
+     <p >  Please enter your query about the sillarai. We are eagerly waiting for your feedback about this.</p>
+    <form method="post" action="/users/contact_me" id="commentForm">
+      <fieldset id="contact">
+      <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
+      <p>Name <br>
+      <input id="contact_name" name="contact[name]" type="text" class="required" > <br>
+      <p>Email address <br>
+      <input id="contact_email" name="contact[email]" type="text" class="required email"> <br>
+      <p>Website (if any):<br>
+      <input id="contact_website" name="contact[website]" type="text" ><br>
+      <p>Comments:<br>
+      <textarea id="contact_comments" name="contact[comments]" rows="4" cols="30" class="required" ></textarea><br>
+      <input type="submit" value="Submit">
+    </fieldset>
+      </p> 
+    </form>
+    <p> If you really feel like having any voice conversation you can contact mobile:<br> 
+     <a href="http://raghulj.com">Raghul.J</a> - 91-9880649824 </p>
+
+  </div>
+  <div id="message">
+  </div>
+</div>
+
+

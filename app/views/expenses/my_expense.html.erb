@@ -1,0 +1,5 @@
+<% for expense in @expenses do %>
+  <div id="<%=expense.id%>" class="ui-widget-conten" style="border:1px solid #ccc;height: 20px; width: 80%; padding: 2px; float: left;margin:3px ">
+    <div id="handle" style="float:right"> :::</div> <%= expense.description %>
+  </div>
+<% end %>

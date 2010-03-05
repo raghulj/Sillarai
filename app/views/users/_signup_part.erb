@@ -1,0 +1,12 @@
+
+<% form_for :user, :url => { :action => "signup" } do |f| %> 
+      <%= f.error_messages %>
+      <%= f.label :email %> <br>
+      <%= f.text_field :email, :size => 17 %> <br>
+      <%= f.label :password %> <br>
+      <%= f.password_field :password, :size => 17 %> <br>
+      <%= f.label :password_confirmation %> <br>
+      <%= f.password_field :password_confirmation, :size => 17 %><br>
+	<br>
+      <%= f.submit 'signup' %>
+<% end %>

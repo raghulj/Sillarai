@@ -1,0 +1,24 @@
+  <div id="add_category">
+    
+    <% form_for(@category) do |f| %>
+      	<%= f.error_messages %>
+	<div style="float:left;">
+      		<%= f.label :name %>
+      		<%= f.text_field :name, :size => 17 %> &nbsp;&nbsp;&nbsp;
+	</div>
+	<div id="colorSelector" style="float:left;">
+		<div style="background-color: #0000ff"></div>
+	</div>
+<script>
+$('#colorSelector div').css('backgroundColor', '#' + "<%=@category.colour%>");
+</script>
+        
+      	<%= f.hidden_field :colour, :value => @category.colour %>
+	<% if @category.new_record?  %>
+	   <% valu = 'Create' %>
+	<% else %>
+	   <% valu = 'Update' %>
+	<% end %>
+      	&nbsp;&nbsp;&nbsp;<%= f.submit valu %>
+    <% end %>
+  </div>

@@ -1,0 +1,21 @@
+
+<div class="left"> 
+<% if @categories %>
+<h2>Categories :</h2>
+<ul>
+<% for category in @categories do %>
+  <% if category.colour.blank? %>
+    <li><div id=<%=category.id %> class="cat_drop"><div id="cat_color" ></div><%= category.name %></div></li> 
+  <% else %>
+    <li><div id=<%=category.id %> class="cat_drop"><div id="cat_color" style="background:#<%= category.colour %>"></div><%= category.name %></div></li> 
+  <% end %>
+<% end %>
+</ul>
+<% else %>
+  <div id="empty_div">
+    No categories.
+    
+  </div>
+<% end %>
+</div>
+

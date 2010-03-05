@@ -1,0 +1,6 @@
+log/*
+config/environment.rb
+config/database.yml
+db/sillarai.sqlite3
+tmp/*
+*.swp

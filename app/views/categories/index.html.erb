@@ -1,0 +1,27 @@
+<h1>Categories</h1>
+<div id="left">
+<%= render :partial => 'catefory_form' %>
+
+
+
+  <% if @categories %>
+<table class="category_list">
+  <tr>
+    <th> Name </th>
+    <th> Colour </th>
+    <th> Actions </th>
+  </tr>
+<% @categories.each do |category| %>
+  <tr>
+    <td><%=h category.name %></td>
+    <td><div style="width:15px;height:15px;background:#<%=category.colour%>"></div></td>
+    <td><%= link_to image_tag('/images/icons/page_white_edit.png'), edit_category_path(category) %>
+    <a  href="/categories/destroy/<%= category.id %>" data-confirm="All the expenses link to this category is destroyed"><img src="/images/icons/delete.png"> </a></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+<br />
+
+</div>
+

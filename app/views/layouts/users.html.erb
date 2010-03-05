@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title> Welcome to Sillarai: A simpler way of managing your expenses.</title>
+<meta http-equiv="Content-Language" content="English" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<%= stylesheet_link_tag 'style','ui.core','ui.base','jquery-ui','jquery.tabs' %>
+
+<%= javascript_include_tag 'jquery',
+                           'ui/ui.core',
+			   'jquery.tabs.pack',
+                            :cache => 'sillarai-web'%>
+
+<script>
+function notify( value){
+  document.getElementById('message_notify').innerHTML = value;
+  document.getElementById('message_notify').style.display = 'block';
+  $('#message_notify').fadeOut(4000);
+}
+</script>
+</head>
+
+<body>
+  <div id="message_notify"> </div>
+<% if flash[:message] %>
+
+	<script> notify('<%= flash[:message] %>'); </script>
+<% end %>
+
+    <div id="wrap">
+        <%= render :partial => '/layouts/header' %>
+				<div id="top"> </div>
+
+	<%= render :partial => '/layouts/welcomebar' %>
+        <div id="content">
+				    <div id="left" >
+				        <%= yield %>
+				    </div>
+						
+						<div style="clear: both;"> </div>
+						</div>
+
+						
+				    <%= render :partial => '/layouts/footer' %>
+				</div>
+    </div>
+	</div>
+
+</body>
+
+<%= render :partial => '/layouts/google_tracker' %>
+</html>

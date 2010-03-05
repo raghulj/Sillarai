@@ -1,0 +1,13 @@
+
+    <% form_for :user, :url => { :action => "login" } do |f| %> 
+      <%= f.error_messages %>
+      <%= f.label :email %><br> 
+      <%= f.text_field :email, :size => 17 %> <br>
+      <%= f.label :password %> <br>
+      <%= f.password_field :password, :size => 17 %><br>
+      <br>
+      <%= f.submit 'login' %>
+    <% end %>
+    <br>
+  	
+    <a href="/users/forgot">Forgot password </a>

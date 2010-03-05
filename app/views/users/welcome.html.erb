@@ -1,0 +1,39 @@
+<script>
+ $(function() {
+
+                $('#container-1').tabs();
+});
+</script>
+<div style="border:0px solid #ccc;width:99%;height:200px;margin:0px auto;">
+  <img src="/images/banner.png">
+</div>
+<div>
+  <div id="loadtext">
+    <br>
+    <br>
+    <p> Sillarai is simple, elegant way for managing your day to day expenses. It helps you to categorize your expenses and visualize them.</p>
+   <br>
+    <p> If you need to know more about Sillarai, please read the <a href="/users/faq">FAQ</a>. </p>
+   <br>
+
+  </div>
+  <div id="loginbox">
+        <div id="container-1">
+            <ul>
+                <li><a href="#login"><span>Login</span></a></li>
+                <li><a href="#signup"><span>Signup</span></a></li>
+            </ul>
+            <div id="login">
+                <%= render :partial => 'login_part' %>
+            </div>
+            <div id="signup">
+       		<%= render :partial => 'signup_part' %>
+            </div>
+
+        </div>
+
+</div>
+  
+
+
+</div>

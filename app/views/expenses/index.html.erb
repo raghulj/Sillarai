@@ -1,0 +1,117 @@
+
+<script>
+  function refreshData(){
+    $.ajax({
+      url: '/expenses/my_expense',
+      type:'get',
+      success: function(dd){
+        constructData(dd,'#box');
+      }
+    })
+  }
+
+  function constructData(data,divid){
+    var str =""
+    dd = JSON.parse(data);
+    for(var i=0;i< dd.length;i++){
+     str += ' <div id="'+dd[i].id+'" class="ui-widget-conten" style="border:1px solid #ccc;height: 20px; width: 80%; padding: 2px; float: left;margin:3px ">' 
+     str +=  ' <div id="handle" style="float:left"> ::</div>' + dd[i].description
+     str +=  ' </div> '
+    }
+    $('.box').html(str);
+    $('.box').draggable
+  }
+
+  function store_expense(){
+    $.ajax({
+      url:'/expenses/create',
+      type:'post',
+      data:'expense='+document.getElementById('expense_data').value,
+      success: function(jsonResponse){
+        document.getElementById('expense_data').value ="";
+        document.getElementById('expense_data').focus();
+        notify(' updated successfully.' );
+        window.location ='/expenses';
+      },
+      error:function(jj){
+        document.getElementById('expense_data').focus();
+        notify(' failed to update category.' );
+      }
+
+    })
+  }
+  function showhelp(){
+    document.getElementById("showhelp").style.display = "block";
+  }
+  function hidehelp(){
+    document.getElementById("showhelp").style.display = "none";
+  }
+
+  function ajaxRequest(url, id) {
+    $.ajax( { 
+      type: 'POST', 
+      url: url, 
+      data: {'id' : id }, 
+      success: function(data){
+        removeExpenseEntry(data.id, data.dt, data.total);
+      },
+      dataType: "json"
+    });
+  }
+
+  function removeExpenseEntry(exp_id, exp_date, eff_total) {
+    $("#" + exp_id).remove();
+    $("#delete" + exp_id).remove();
+    $("#total_" + exp_date).html(eff_total);
+  }
+</script>
+<div class="right"> 
+
+  
+  <div class="enterbox" >
+    <p> Enter the expense in words </p>
+    <form method="post" action="/expenses">
+      <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
+      <input id="expense_data" name="expenses" type="text" size="60" onfocus="javascript:showhelp();" onblur="javascript:hidehelp();"> <div id="date_select" style="float:right;position:absolute;"></div>
+    </form>
+  </div>
+  <br>
+  <div id="specific_date">
+  Select Month and year for more details
+  <form method="get" action="/expenses">
+      <%= select_month(Time.local(@year,@month,"1") )%>
+      <%= select_year(Date.today, :start_year => 1992, :end_year => 2014, :select => @year) %>
+      <input type="submit" value="submit">
+    </form>
+  </div>
+  <!----------- main content -->
+<div class="box" style="float:right;width:97%;margin-top:20px;">
+  <% @expenses.each { |exp_date,expense| %> 
+    <br>
+    <p style="font-size:17px;padding:6px;font-weight:bold;"><%= exp_date.strftime("%A, %d-%m-%Y") %><hr><br>
+    <% tot = 0 %>
+    <% for exp in expense %>
+  <div id="<%= exp.id %>" class="ui-widget-conten" style="border:1px solid #ccc;height: 20px; width: 90%; padding: 2px; float: left; ">
+    <div id="handle" style="float:left;cursor:move;margin-right:8px;" > <img src="/images/icons/arrow_out.png"></div>
+    <div class="editable" style="float:left" id="<%= exp.id%>"><%= exp.description %></div>
+    <p style="text-align:right"> <%= exp.amount%></p>
+  </div>
+  <!--div id="delete"+<%= exp.id %> style="height:20px;padding:3px;"><a href="/expenses/destroy/<%=exp.id%>"><img src="/images/icons/delete.png"></a></div-->
+  <div id="delete<%= exp.id %>" style="height:20px;padding:3px;">
+    <a href="javascript:void(null);" onClick="ajaxRequest('/expenses/destroy', <%=exp.id%>);"><img src="/images/icons/delete.png"></a>
+  </div>
+  <% tot += exp.amount %>
+  <% end %>
+  <div style="width:90%;">
+    <div style="float:left"></div>
+    <div style="float:right"> Total : <span id="total_<%= exp_date.to_s %>"><%= tot %></span></div>
+    <div id="spacer"></div>
+  </div>
+<% } %>
+
+<script>
+  document.getElementById('date_select').style.display = 'none';
+  document.getElementById('expense_data').value='';
+</script>
+</div>
+</div>

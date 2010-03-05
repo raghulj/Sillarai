@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Sillarai</title>
+<meta http-equiv="Content-Language" content="English" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<%= stylesheet_link_tag 'style','ui.core','ui.base','jquery-ui','ui.datepicker' %>
+
+<%= javascript_include_tag 'jquery',
+                           'ui/ui.core',
+                           'ui/ui.draggable',
+                           'ui/ui.droppable', :cache => "expense-imp"%>
+                          
+<%= javascript_include_tag 'ui/jquery.shortkeys', 
+                           'ui/ui.datepicker',
+                           'sillarai' %>
+<%= javascript_include_tag  'inlineEdit' %>
+<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
+<script type="text/javascript" src="/javascripts/swfobject.js"></script>
+<script>
+  // Always send the authenticity_token with ajax
+  $(document).ajaxSend(function(event, request, settings) {
+        if ( settings.type == 'post' ) {
+                  settings.data = (settings.data ? settings.data + "&" : "")
+                              + "authenticity_token=" + encodeURIComponent( AUTH_TOKEN );
+           
+                            }
+                      
+                          });
+
+</script>
+<script type="text/javascript">
+
+  $(function(){
+      $('.editable').inlineEdit();
+
+      });
+function notify( value){
+  document.getElementById('message_notify').innerHTML = value;
+  document.getElementById('message_notify').style.display = 'block';
+  $('#message_notify').fadeOut(3000);
+}
+function postExpense(id,value){
+
+  document.body.innerHTML += '<div style="block:none"><form id="editExppost" method="post" action="/expenses/update"><input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" ><input id="expense_data" name="expense_data" type="text" value="'+value+'"><input id="exp_id" name="exp_id" type="hidden" value="'+id+'"></form><div>';
+  document.getElementById("editExppost").submit();
+  
+
+
+}
+
+</script>
+</head>
+<body>
+
+<div id="message_notify"> </div>
+<% if flash[:message] %>
+
+	<script> notify('<%= flash[:message] %>'); </script>
+<% end %>
+<div id="showhelp"> 
+   <p>Please use following format to enter expense</p>
+    <p> <b> 450, dinner with friends mm/dd/yyyy </b> </p>
+    <p> press <b>Space+Z</b> for calendar</p>
+
+</div>
+<div id="wrap">
+  <%= render :partial => '/layouts/header' %>
+
+<div id="top"> </div>
+
+  <%= render :partial => '/layouts/menubar' %>
+<div id="content">
+  <%= yield %>
+
+<%= render :partial=> '/layouts/sidebar' %>
+
+<div style="clear: both;"> </div>
+</div>
+
+<%= render :partial=> '/layouts/footer' %>
+
+
+</div>
+<%= render :partial => '/layouts/google_tracker' %>
+</body>
+</html>

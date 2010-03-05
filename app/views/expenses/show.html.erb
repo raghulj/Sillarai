@@ -1,0 +1,18 @@
+<p>
+  <b>Description:</b>
+  <%=h @expense.description %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%=h @expense.amount %>
+</p>
+
+<p>
+  <b>Exp date:</b>
+  <%=h @expense.exp_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_expense_path(@expense) %> |
+<%= link_to 'Back', expenses_path %>

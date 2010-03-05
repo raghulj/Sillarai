@@ -1,0 +1,47 @@
+<script>
+ $(function() {
+
+                $('#container-1').tabs(2);
+});
+</script>
+
+<div>
+  <div id="loadtext">
+    <p> Sillarai is simple, elegant way for managing your day to day miscellaneous expenses. It helps you to categorize your expenses and visualize them.</p>
+   <br>
+   <p> Sillarai is mainly focused on managing your miscellaneous expenses which is really hard to keep track of by most of us.</p>
+    <br>
+   <p> Hence to make it easier the system provides you several ways to track expense. </p>
+   <br>
+   <p><strong> Features</strong></p>
+   <ul style="margin-left:20px;">
+     <li> Simple and lite Mobile application </li>
+     <li> Twitter mobile and desktop application </li>
+     <li> Weekly expense by mail </li>
+     <li> Download the data to excel sheet </li>
+   </ul>
+   <br>
+   <p> Please check out the <a href="/users/faq">faq</a> for more information on Sillarai </p>
+  
+
+  </div>
+  <div id="loginbox">
+        <div id="container-1">
+            <ul>
+                <li><a href="#login"><span>Login</span></a></li>
+                <li><a href="#signup"><span>Signup</span></a></li>
+            </ul>
+            <div id="login">
+                <%= render :partial => 'login_part' %>
+            </div>
+            <div id="signup">
+       		<%= render :partial => 'signup_part' %>
+            </div>
+
+        </div>
+
+</div>
+  
+
+
+</div>

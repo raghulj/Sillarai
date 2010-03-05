@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Sillarai</title>
+<meta http-equiv="Content-Language" content="English" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<%= stylesheet_link_tag 'style','ui.core','ui.base','colorpicker' %>
+
+<%= javascript_include_tag 'jquery' %>
+                          
+<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
+<script>
+  // Always send the authenticity_token with ajax
+  $(document).ajaxSend(function(event, request, settings) {
+        if ( settings.type == 'post' ) {
+                  settings.data = (settings.data ? settings.data + "&" : "")
+                              + "authenticity_token=" + encodeURIComponent( AUTH_TOKEN );
+           
+                            }
+                      
+                          });
+
+function notify( value){
+  document.getElementById('message_notify').innerHTML = value;
+  document.getElementById('message_notify').style.display = 'block';
+  $('#message_notify').fadeOut(3000);
+}
+
+</script>
+
+</script>
+<%= javascript_include_tag 'colorpicker/colorpicker',
+                           'colorpicker/eye',
+                           'colorpicker/utils'
+                            %>
+    <script type="text/javascript" src="/javascripts/colorpicker/layout.js?ver=1.0.2"></script>
+
+</head>
+<body>
+<div id="message_notify"> </div>
+<% if flash[:message] %>
+
+	<script> notify('<%= flash[:message] %>'); </script>
+<% end %>
+<div id="wrap">
+  <%= render :partial => '/layouts/header' %>
+
+<div id="top"> </div>
+
+<p style="color: green"><%= flash[:notice] %></p>
+  <%= render :partial => '/layouts/menubar' %>
+<div id="content">
+  <%= yield %>
+
+
+<div style="clear: both;"> </div>
+</div>
+
+<%= render :partial=> '/layouts/footer' %>
+
+
+</div>
+
+</body>
+<%= render :partial => '/layouts/google_tracker' %>
+
+</html>
