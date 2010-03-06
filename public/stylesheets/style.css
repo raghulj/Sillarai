@@ -142,6 +142,7 @@ padding: 0 0 10px 0;
   border:1px solid #ccc;
   border-right: 2px solid #ccc;
   border-bottom:2px solid #ccc;
+  background: #FDFDFD;
 }
 div#graph_link {
   margin:10px;
@@ -152,6 +153,16 @@ div#graph_link {
 }
 div#graph_link a {
   padding:5px;
+}
+div#expense_form_category {
+  color: #E1DFDF;
+  font-weight: bold;
+}
+#category_select_tag {
+  float:left;
+}
+p#question {
+  font-weight:bold;
 }
 /********************* Categories *******************/
 div#add_category {
@@ -172,6 +183,8 @@ div#cat_color {
   margin-right:3px;
 }
 div#specific_date {
+  padding: 8px;
+  background: #E8E8E8;
   float:right;
 }
 div#showhelp {
@@ -341,6 +354,7 @@ div#content_right {
 div#feature_container {
 	margin:10px;
 	margin-bottom:20px
-	border-bottom: 2px solid #cccccc;
+  border: 2px solid #ccc;
+	border-bottom: 2px solid #ccc;
 	padding: 10px;
 }

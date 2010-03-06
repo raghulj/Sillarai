@@ -71,6 +71,9 @@ class ExpensesController < ApplicationController
     amount,description,date = Expense.split_data(data)
     unless amount.nil? 
       @expense = Expense.new
+      unless params[:category][:id].blank?
+        @expense.category_id = params[:category][:id]
+      end
       @expense.amount = amount
       @expense.description = description
       @expense.exp_date = date

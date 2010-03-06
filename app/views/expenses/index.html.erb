@@ -64,6 +64,13 @@
     $("#delete" + exp_id).remove();
     $("#total_" + exp_date).html(eff_total);
   }
+  function show_form_categories(){
+    document.getElementById('expense_form_category').style.color = "#8B8484";
+    document.getElementById('category_select_tag').style.display = 'block';
+  }
+  function hide_form_categories(){
+    document.getElementById('category_select_tag').style.display = 'none';
+  }
 </script>
 <div class="right"> 
 
@@ -72,7 +79,20 @@
     <p> Enter the expense in words </p>
     <form method="post" action="/expenses">
       <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
-      <input id="expense_data" name="expenses" type="text" size="60" onfocus="javascript:showhelp();" onblur="javascript:hidehelp();"> <div id="date_select" style="float:right;position:absolute;"></div>
+      <input id="expense_data" name="expenses" type="text" size="55" onfocus="javascript:showhelp();" onblur="javascript:hidehelp();"> 
+      <input type="submit" value="Add">
+      <br> 
+      <br>
+      <div id="expense_form_category" onMouseOver="javascript:show_form_categories();" >
+        <div style="float:left">Category &nbsp;&nbsp;</div>
+        <div id="category_select_tag" style="display:none" >
+          <% options = @categories.map{ |c| [c.name,c.id]} %>
+          <%= select("category", "id", options,{:include_blank => true}) %>
+        </div>
+        <div id="spacer"></div>
+      </div>
+
+      <div id="date_select" style="float:right;position:absolute;"></div>
     </form>
   </div>
   <br>
