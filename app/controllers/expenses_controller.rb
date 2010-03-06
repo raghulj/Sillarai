@@ -54,7 +54,7 @@ class ExpensesController < ApplicationController
     @expense.category_id = params[:cid]
     @expense.user_id = current_user.id
     if @expense.save
-        render :json => {:status => "success",:message=> "Updated to the database",:html => "data updated"}
+        render :json => {:status => "success",:message=> "Updated to the database",:html => "data updated",:color => @expense.category.colour, :id => @expense.id}
     else
         render :json => {:status => "failure",:message=> "Error in data",:html => "<script> alert('Please check the entered data');</script>"}
     end
@@ -75,8 +75,14 @@ class ExpensesController < ApplicationController
       @expense.description = description
       @expense.exp_date = date
       @expense.user_id = current_user.id
-      puts date
       if @expense.save
+        if current_user.use_bayes == 1
+          if BayesQueue.uniq? @expense.user_id
+            bb = BayesQueue.new
+            bb.user_id = @expense.user_id
+            bb.save
+          end
+        end
         flash[:message] = "Expense saved. "
         redirect_to :action => "index"
       else

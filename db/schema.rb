@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100223135012) do
+ActiveRecord::Schema.define(:version => 20100306105226) do
+
+  create_table "bayes_queue", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bayes_queues", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -37,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20100223135012) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "data_usage"
+    t.integer  "use_bayes"
   end
 
 end

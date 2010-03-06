@@ -121,5 +121,24 @@ class UsersController < ApplicationController
     end
       redirect_to "/users/settings"
   end
+  
+  def bayes_preference
+    d = params[:bayes]
+    val = 0
+    if d == "yes"
+      val = 1
+    else
+      val =0
+    end
+     
+    if current_user.update_attribute("use_bayes",val)
+        flash[:message] = " Updated successfully. "
+ 
+    else
+        flash[:message] = " Not updated. "
+    
+    end
+      redirect_to "/users/settings"
+  end
 
 end

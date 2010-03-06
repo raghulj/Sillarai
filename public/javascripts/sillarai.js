@@ -46,6 +46,8 @@
             type:'post',
             data: 'eid='+ui.draggable.attr('id')+'&cid='+$(this).attr('id'),
             success: function(resp){
+              document.getElementById('expense_colour_'+resp.id).style.background = '#'+resp.color;
+              document.getElementById('expense_colour_'+resp.id).style.border = '1px solid #'+resp.color; 
               notify('Updated successfully');
             }
           })

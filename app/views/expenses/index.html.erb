@@ -92,7 +92,12 @@
     <% tot = 0 %>
     <% for exp in expense %>
   <div id="<%= exp.id %>" class="ui-widget-conten" style="border:1px solid #ccc;height: 20px; width: 90%; padding: 2px; float: left; ">
-    <div id="handle" style="float:left;cursor:move;margin-right:8px;" > <img src="/images/icons/arrow_out.png"></div>
+      <div id="handle" style="float:left;cursor:move;margin-right:8px;" > 
+         <% colr = get_category_colour(exp)%> 
+        <div id= "expense_colour_<%= exp.id %>" style="border:1px solid #<%= colr %>;float:right;height:17px;width:2px;margin-left:2px;background:#<%= colr %>;"></div>
+        <div style="float:left"><img src="/images/icons/arrow_out.png"></div>
+      </div>
+
     <div class="editable" style="float:left" id="<%= exp.id%>"><%= exp.description %></div>
     <p style="text-align:right"> <%= exp.amount%></p>
   </div>

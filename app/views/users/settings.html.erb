@@ -61,6 +61,27 @@ function notify( value){
 	<%= render :partial => 'change_password' %>
   <br>
   <br>
+  
+ <h2> Use categorization engine </h2>
+     
+    <form method="post" action="/users/bayes_preference">
+      <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
+   <p style="margin:30px;margin-left:30px;">
+	Use categorization engine for categorizing my expenses automatically
+       <% if @user.use_bayes == 1 %>
+	 <% chk = true %>
+	<% else %>
+         <% chk = false %>
+        <% end %>
+      <%=  check_box_tag 'bayes', 'yes', chk %> &nbsp;&nbsp; 
+	<input type="submit" value ="save" >
+   </p>
+    </form>
+   <p style="margin:30px;margin-left:30px;">
+    Note: The categorization is built based on bayes algorithm. Hence you need to categorize your expenses manually atleast for 10 expenses.</p>
+
+    <br>
+    <br>
  <h2> Usage survey </h2>
      
     <form method="post" action="/users/usage_survey">
