@@ -67,7 +67,7 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.xml
   def create
-    data = params[:expenses]
+    data = params[:expense]
     amount,description,date = Expense.split_data(data)
     unless amount.nil? 
       @expense = Expense.new
@@ -79,6 +79,7 @@ class ExpensesController < ApplicationController
       @expense.exp_date = date
       @expense.user_id = current_user.id
       if @expense.save
+        @eff_total = Expense.total(@expense.exp_date.to_date, current_user)
         if current_user.use_bayes == 1
           if BayesQueue.uniq? @expense.user_id
             bb = BayesQueue.new
@@ -86,8 +87,34 @@ class ExpensesController < ApplicationController
             bb.save
           end
         end
-        flash[:message] = "Expense saved. "
-        redirect_to :action => "index"
+        if @expense.exp_date.month == DateTime.now.month
+          this_month = true
+        else
+          this_month = false
+        end
+        unless params[:category][:id].blank?
+          color = @expense.category.colour
+        else
+          color = ""
+        end
+          respond_to do |format|
+              format.js { 
+                  render :json => {:id => @expense.id, 
+                    :desc => @expense.description, 
+                    :amount => @expense.amount,
+                    :dt => @expense.exp_date.strftime("%d_%m_%y"), 
+                    :total_date => @expense.exp_date.to_date,
+                    :total => @eff_total.to_s,
+                    :disp_date => @expense.exp_date.strftime("%A, %d-%m-%Y"),
+                    :color => color,
+                    :this_month => this_month
+                    }
+               }
+              format.html { redirect_to(expenses_url) }
+              format.xml  { head :ok }
+          end
+        #flash[:message] = "Expense saved. "
+        #redirect_to :action => "index"
       else
         render :status => 400, :json => {:message=> "Error in data",:html => "<script> alert('Please check the entered data');</script>"}
       end
@@ -218,6 +245,25 @@ class ExpensesController < ApplicationController
       format.html { redirect_to(expenses_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def upload_file
+    post = Expense.import_file(params[:upload])
+    if post
+      respond_to do |format|
+        format.js { 
+            render :json => {:mess => "File imported successfully"}
+        }
+      end
+    else
+      respond_to do |format|
+        format.js { 
+            render :json => {:mess => "FAILURE"}
+        }
+      end
+
+    end
+
   end
 
 

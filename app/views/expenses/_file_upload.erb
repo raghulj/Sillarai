@@ -1,0 +1,16 @@
+You can upload Excel Sheet files (.xls) or CSV files. The format of data in the file should
+be<br><b> 'Description', 'Amount and 'Date'</b>.<br> If the order is wrong, the data is not imported.
+<br>
+<form method="post" action="javascript:uploadFile();">
+      <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
+
+ <br>
+      <p><label for="upload_file">Select File</label> : 
+
+     <%= file_field 'upload', 'datafile', :size => 10 %>
+
+      <input id="upload_button" type="submit" value="Upload">
+    </form>
+<br><br>
+Note: The file is not stored in the system.
+

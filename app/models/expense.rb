@@ -116,6 +116,7 @@ class Expense < ActiveRecord::Base
       # if no colour is set a random colour is picked from the array
       unless clr.colour.blank?
         colors << "#"+clr.colour
+        puts clr.colour
       else
         colors << RANDOM_COLORS[rand(6)]
       end
@@ -202,6 +203,14 @@ class Expense < ActiveRecord::Base
      end
      total
   end 
+
+  def self.import_file(upload)
+    name = upload['datafile'].original_filename
+    directory = 'public/data'
+    path = File.join(directory,name)
+    File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
+
+  end
 
 
 

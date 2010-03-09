@@ -62,6 +62,10 @@
   function removeExpenseEntry(exp_id, exp_date, eff_total) {
     $("#" + exp_id).remove();
     $("#delete" + exp_id).remove();
+    refreshTotal(exp_date,eff_total);
+  }
+
+  function refreshTotal(exp_date,eff_total){
     $("#total_" + exp_date).html(eff_total);
   }
   function show_form_categories(){
@@ -77,10 +81,11 @@
   
   <div class="enterbox" >
     <p> Enter the expense in words </p>
-    <form method="post" action="/expenses">
+    <form method="post" action="javascript:saveExpense();">
       <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token.inspect %>> 
       <input id="expense_data" name="expenses" type="text" size="55" onfocus="javascript:showhelp();" onblur="javascript:hidehelp();"> 
-      <input type="submit" value="Add">
+      <input id="add_button" type="submit" value="Add">
+    <div id="progress_image"><%= image_tag '/images/spinner.gif' %> </div>
       <br> 
       <br>
       <div id="expense_form_category" onMouseOver="javascript:show_form_categories();" >
@@ -96,6 +101,11 @@
     </form>
   </div>
   <br>
+  <!-- <a href="#" onclick="uploadDialogBox();">Upload file</a> -->
+<div id="upload_file_dialog" title="Upload file" style="display:none"> 
+  <%= render :partial => 'file_upload' %>
+</div>
+
   <div id="specific_date">
   Select Month and year for more details
   <form method="get" action="/expenses">
@@ -105,11 +115,13 @@
     </form>
   </div>
   <!----------- main content -->
-<div class="box" style="float:right;width:97%;margin-top:20px;">
+<div id="month_expenses_data" class="box" style="float:right;width:97%;margin-top:20px;">
   <% @expenses.each { |exp_date,expense| %> 
     <br>
+    <div id="day_expense_div_<%= exp_date.strftime("%d_%m_%y") %>">
     <p style="font-size:17px;padding:6px;font-weight:bold;"><%= exp_date.strftime("%A, %d-%m-%Y") %><hr><br>
     <% tot = 0 %>
+    <div id="date_<%= exp_date.strftime("%d_%m_%y")%>">
     <% for exp in expense %>
   <div id="<%= exp.id %>" class="ui-widget-conten" style="border:1px solid #ccc;height: 20px; width: 90%; padding: 2px; float: left; ">
       <div id="handle" style="float:left;cursor:move;margin-right:8px;" > 
@@ -127,11 +139,13 @@
   </div>
   <% tot += exp.amount %>
   <% end %>
+</div> <!-- End of Per date div -->
   <div style="width:90%;">
     <div style="float:left"></div>
     <div style="float:right"> Total : <span id="total_<%= exp_date.to_s %>"><%= tot %></span></div>
     <div id="spacer"></div>
   </div>
+</div> <!-- End of per day div including date and hr -->
 <% } %>
 
 <script>
@@ -140,3 +154,4 @@
 </script>
 </div>
 </div>
+

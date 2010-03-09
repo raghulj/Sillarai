@@ -358,3 +358,15 @@ div#feature_container {
 	border-bottom: 2px solid #ccc;
 	padding: 10px;
 }
+
+div#progress_image {
+  float:right;
+  margin-top: 10px;
+  display:none;
+}
+
+div#upload_file_dialog {
+  font-size: 80%;
+  padding: 3px;
+
+}
