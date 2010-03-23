@@ -4,7 +4,8 @@
 } 
 
 body {
-background: #555;
+background: #DFC288 url(/images/bamboo.jpg);
+background-attachment:fixed;
 font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 90%;
 line-height: 18px;
@@ -32,20 +33,24 @@ font-weight: bold;
 padding: 12px 0 5px 10px;
 }
 #header h1 a {
-color: #ffffff;
+color: #2B9B0B;
+text-shadow: #000 1px 1px 2px;
 text-decoration: none;
 }
 #header h1 a:hover {
-color: #fff;
+color: #2B9B0B;
+text-shadow: #000 2px 1px 2px;
 text-decoration: none;
 }
 #header h2 {
-color: #F8F6F6;
+color: #2B9B0B;
 font-size: 15px;
-//font-weight: 100;
+text-shadow: #000 1px 1px 1px;
 padding: 0 0 0 11px;
-//letter-spacing: -1px;
 line-height: 12px;
+}
+#header h2 hover {
+text-shadow: #fff 2px -2px 2px;
 }
 
 #menu {
@@ -96,7 +101,6 @@ width: 150px;
 float: left;
 position:fixed;
 padding: 10px;
-//border-right: 1px solid #bbb;
 font-size: 12px;
 }
 .left ul {
@@ -112,11 +116,11 @@ line-height: 30px;
 .left a { text-decoration: none }
 
 #top {
-background: #555 ;
+//background: #555 ;
 padding: 5px 0;
 }
 #bottom {
-background: #555 ;
+//background: #555 ;
 padding: 10px 0;
 }
 
