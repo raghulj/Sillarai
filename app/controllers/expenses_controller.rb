@@ -229,6 +229,15 @@ class ExpensesController < ApplicationController
     render :text => data, :layout => false
   end
 
+  def month_expense
+    month =  Time.now.month
+    year =  Time.now.year
+    start_date = "#{year.to_s}-#{month.to_s}-01".to_date
+    end_date = "#{year.to_s}-#{month.to_s}-#{Expense.get_days_in_month(year.to_i,month.to_i).to_s}".to_date
+    @expenses = current_user.expenses.find(:all, 
+                             :conditions =>["exp_date between ? and  ?",start_date,end_date]).collect{ |t | t.amount}.sum
+    render :json => {:total => @expenses, :month => DateTime.now.strftime("%B")}
+  end
 
   # DELETE /expenses/1
   # DELETE /expenses/1.xml

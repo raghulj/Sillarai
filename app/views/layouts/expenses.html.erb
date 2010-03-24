@@ -50,11 +50,15 @@ function postExpense(id,value){
 
 
 }
-
+total_month_expense();
 </script>
 </head>
 <body>
 
+<div id="expense_total">
+  <div id="expense_clip">  </div>
+
+</div>
 <div id="message_notify"> </div>
 <% if flash[:message] %>
 

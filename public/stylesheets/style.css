@@ -308,7 +308,19 @@ div#field_right {
   float:right;
   width:50%;
 }
-
+div#expense_total {
+  margin-top:20%;
+  margin-left:1%;
+  position:fixed;
+  float:left;
+}
+div#expense_clip {
+ background: url(/images/paper_clip.gif) no-repeat; 
+ height: 167px;
+ padding: 40px;
+ width: 161px;
+ font-weight:bold;
+}
 
 #colorSelector {
 	position: relative;

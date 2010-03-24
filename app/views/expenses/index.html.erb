@@ -54,6 +54,7 @@
       data: {'id' : id }, 
       success: function(data){
         removeExpenseEntry(data.id, data.dt, data.total);
+        total_month_expense();
       },
       dataType: "json"
     });

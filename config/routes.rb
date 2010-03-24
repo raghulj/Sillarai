@@ -18,7 +18,12 @@ ActionController::Routing::Routes.draw do |map|
       :usage_survey => :post,
       :change_email => :post
   }
-  map.resources :expenses, :collection => { :graphview => :get,:year_line_data => :get, :month_line_data => :get, :month_pie_data => :get, :year_pie_data => :get} 
+  map.resources :expenses, :collection => { :graphview => :get,
+    :year_line_data => :get, 
+    :month_line_data => :get, 
+    :month_pie_data => :get, 
+    :month_expense => :get,
+    :year_pie_data => :get} 
   map.resources :categories
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'

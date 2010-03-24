@@ -127,6 +127,7 @@ function saveExpense(){
         $('#add_button').removeAttr('disabled')
         notify('Expense saved!' );
         $('progress_image').hide(1);
+        total_month_expense();
       },
       error:function(jj){
          $('#add_button').removeAttr('disabled')
@@ -189,3 +190,17 @@ function uploadFile(){
         }   
         }); */
 }
+function total_month_expense(){
+    $.ajax({
+      url:'/expenses/month_expense',
+      type:'GET',
+      //data:{'expense' :document.getElementById('expense_data').value,'category[id]':document.getElementById('category_id').value},
+      success: function(data){
+        $('#expense_clip').html(data.month +'<br> expense is <br>'+ data.total);
+      },
+      dataType: 'json'
+      });
+
+  
+}
+
