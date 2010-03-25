@@ -15,7 +15,7 @@ class UsersController < ApplicationController
        Notifier.deliver_welcome_message(@user.email)
        redirect_to :controller => "expenses", :action => "index"          
     else
-      flash[:warning] = "Signup unsuccessful"
+      flash[:message] = "Signup unsuccessful"
     end
   end
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
         redirect_to_stored
       else
         redirect_to "/users/welcome"
-        flash[:warning] = "Login unsuccessful"
+        flash[:message] = "Login unsuccessful"
       end
     end
   end
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
       flash[:message]  = "A new password has been sent by email."
       redirect_to :action=>'welcome'
     else
-      flash[:warning]  = "Couldn't send password"
+      flash[:message]  = "Couldn't send password"
     end
   end
   
