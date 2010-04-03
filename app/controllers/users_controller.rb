@@ -4,6 +4,14 @@ class UsersController < ApplicationController
   before_filter :login_as_api, :only => ['app_login']
   before_filter :set_cache_buster
 
+  caches_page :welcome, :features, :faq, :contact
+
+  def welcome
+  end
+
+  def features;end;
+  def faq; end;
+  def contact; end;
 
   def signup
     @user = User.new(params[:user])

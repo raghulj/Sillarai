@@ -179,16 +179,17 @@ function uploadDialogBox(){
 
 function uploadFile(){
 
- /* new AjaxUpload('button4', {
+  new AjaxUpload('upload_button', {
         action: 'do-nothing.htm',
+
         onSubmit : function(file , ext){
-              $('#button4').text('Uploading ' + file);
+              $('#upload_button').text('Uploading ' + file);
               this.disable(); 
         },
         onComplete : function(file){
-              $('#button4').text('Uploaded ' + file);       
+              $('#upload_button').text('Uploaded ' + file);       
         }   
-        }); */
+        }); 
 }
 function total_month_expense(){
     $.ajax({
